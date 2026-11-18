@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Cloudbound SF — A Playable City in the Sky</title>
+<meta name="description" content="Fly freely over a dreamy, handcrafted San Francisco. Golden Gate, Painted Ladies, Twin Peaks and the bay at golden hour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<canvas id="scene" aria-label="Cloudbound SF 3D city. Drag to steer and fly."></canvas>
+
+<div id="vignette" aria-hidden="true"></div>
+
+<header id="brand">
+  <div class="brand-badge">✦</div>
+  <div>
+    <h1>Cloudbound <span>SF</span></h1>
+    <p>A playable city in the sky</p>
+  </div>
+</header>
+
+<div id="compass" aria-hidden="true">
+  <div class="compass-ring"><div id="needle">N</div><div class="compass-star">✦</div></div>
+  <div id="compass-label">GOLDEN GATE</div>
+</div>
+
+<div id="stats" aria-label="Flight status">
+  <div><label>Speed</label><strong id="stat-speed">12</strong><small>kn</small></div>
+  <div><label>Altitude</label><strong id="stat-alt">86</strong><small>m</small></div>
+  <div><label>Place</label><strong id="stat-place">Over the Bay</strong></div>
+</div>
+
+<div id="hint">
+  <strong>The city is yours. Fly anywhere.</strong>
+  <span>Drag to steer · Scroll for speed · Double-click to boost</span>
+</div>
+
+<div id="landmark-toast" role="status" aria-live="polite"></div>
+
+<div id="controls-bar">
+  <button id="btn-tilt" type="button">🧭 Tilt to fly</button>
+  <button id="btn-boost" type="button">Boost</button>
+  <button id="btn-pause" type="button">Pause</button>
+  <label class="speed-ctl">Speed <input id="speed-range" type="range" min="0" max="30" value="12" step="1" aria-label="Cruising speed"></label>
+</div>
+
+<div id="touch-pad" aria-hidden="true"><div id="touch-knob"></div></div>
+
+<div id="pause-overlay" hidden>
+  <div class="pause-card">
+    <h2>Paused above the clouds</h2>
+    <p>Drag to steer · WASD / arrows to fly · Space climbs · Shift descends</p>
+    <label>Sensitivity <input id="sens-range" type="range" min="40" max="180" value="100" aria-label="Steering sensitivity"></label>
+    <label>Time of day
+      <select id="time-select" aria-label="Time of day">
+        <option value="golden" selected>Golden hour</option>
+        <option value="day">Coastal day</option>
+        <option value="dusk">Lavender dusk</option>
+      </select>
+    </label>
+    <button id="btn-resume" type="button">Keep flying</button>
+  </div>
+</div>
+
+<div id="error-box" hidden></div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

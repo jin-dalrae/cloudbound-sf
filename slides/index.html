@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudbound SF — Slide Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2b2118;--paper:#fff7ea;--card:#fffaf0;--peach:#ffb27a;--coral:#ff7a59;--teal:#1f7a72;--gold:#c98a2e}
+*{box-sizing:border-box}
+body{margin:0;background:#f3d9b8;font-family:"Nunito",system-ui,sans-serif;color:var(--ink)}
+.slide{display:none;min-height:100vh;padding:48px 6vw 90px;flex-direction:column;justify-content:center}
+.slide.active{display:flex}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+h1,h2{font-family:"Fredoka",sans-serif;line-height:1.05;margin:8px 0 14px}
+h1{font-size:clamp(38px,6vw,72px)} h1 span{color:var(--coral)}
+h2{font-size:clamp(28px,4vw,46px)}
+p,li{font-size:clamp(16px,1.6vw,20px);line-height:1.55;font-weight:600}
+.lead{max-width:62ch}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);padding:22px 26px}
+img.shot{width:100%;border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);display:block}
+.grid{display:grid;gap:18px}
+.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.grid.two,.grid.three{grid-template-columns:1fr}}
+figure{margin:0}figcaption{font-size:13px;font-weight:800;margin-top:8px;opacity:.75}
+.chip{display:inline-block;background:var(--ink);color:var(--paper);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:800;margin:3px 4px 3px 0}
+.chip.light{background:var(--card);color:var(--ink);border:2px solid var(--ink)}
+code{background:#2b2118;color:#ffd98a;padding:2px 8px;border-radius:8px;font-size:.85em}
+a{color:var(--teal);font-weight:800}
+.big-link{font-family:"Fredoka",sans-serif;font-size:clamp(20px,3vw,34px)}
+#nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:8px 14px;box-shadow:4px 4px 0 var(--ink);z-index:9}
+#nav button{font-family:"Fredoka",sans-serif;font-weight:600;border:2px solid var(--ink);background:#ffe3b3;border-radius:999px;padding:7px 18px;cursor:pointer}
+#nav button:hover{background:var(--peach)}
+#count{font-weight:800;font-size:13px;min-width:52px;text-align:center}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{border:2px solid var(--ink);padding:9px 12px;text-align:left;background:var(--card)}
+th{background:#ffe3b3;font-family:"Fredoka",sans-serif}
+</style>
+</head>
+<body>
+
+<section class="slide active">
+  <div class="kicker">Cloudbound SF · A playable city in the sky</div>
+  <h1>Fly over a dreamy,<br>handcrafted <span>San Francisco</span></h1>
+  <p class="lead">The city itself is the interface. No menus to learn, no mission to finish — you open the page and you are already floating over the bay at golden hour. Built to inspire curiosity, wonder, and the simple pleasure of moving through a beautiful world.</p>
+  <figure><img class="shot" src="assets/poster-bay.jpg" alt="Runware-generated miniature San Francisco diorama poster"><figcaption>Key art generated with the Runware API — miniature-diorama San Francisco, golden hour.</figcaption></figure>
+</section>
+
+<section class="slide">
+  <div class="kicker">Why I made this</div>
+  <h2>Make something people want to explore — even with nothing to accomplish</h2>
+  <div class="grid two">
+    <div class="card"><p><strong>The itch.</strong> Most city websites are maps, lists, and hero sections. I wanted the opposite: step <em>into</em> San Francisco. The Golden Gate in fog, Painted Ladies in pastel, Twin Peaks above it all — as a tiny living diorama you fly through just because it feels good.</p></div>
+    <div class="card"><p><strong>The bet.</strong> The viral sprite-stacking pixel-art clips prove flat 2D slices can feel more tactile and charming than heavy 3D. If that technique can carry a whole flyable city in a browser — instantly, on phone and desktop — it becomes a new kind of love letter to a place.</p></div>
+  </div>
+  <p><span class="chip">Wonder over tasks</span><span class="chip">City as interface</span><span class="chip">Golden hour, always</span><span class="chip">Fly anywhere</span></p>
+  <figure><img class="shot" src="assets/ref-hero-flight.png" alt="Ideation reference: red biplane flying toward the Golden Gate at sunset"><figcaption>North-star reference: a little red plane, the bridge, fog, and sunset water.</figcaption></figure>
+</section>
+
+<section class="slide">
+  <div class="kicker">The technique</div>
+  <h2>Sprite stacking: flat pixels, real volume</h2>
+  <div class="grid two">
+    <div class="card">
+      <p>Take one pixel-art sprite. Slice it into horizontal layers. Draw every layer again, a few pixels higher. The stack fakes depth — and when each layer <strong>rotates</strong> with the camera, a flat drawing turns like a solid model.</p>
+      <p>Cloudbound SF runs a custom Canvas 2D stack engine: every building, bridge tower, tree, boat, and cloud is a stack of pixel slices — up to 30 layers for the Golden Gate towers — painter-sorted and rotated live as you steer. No 3D meshes.</p>
+    </div>
+    <figure><img class="shot" src="assets/ref-slice-anatomy.png" alt="Ideation reference showing a landmark exploded into stacked slices"><figcaption>Slice anatomy: one landmark, exploded into its stacked layers.</figcaption></figure>
+  </div>
+  <figure><img class="shot" src="assets/ref-stack-closeup.png" alt="Ideation reference: stepped sprite-stack close-up of SF buildings"><figcaption>The stepped, chunky silhouette we are chasing — stacks you can read slice by slice.</figcaption></figure>
+</section>
+
+<section class="slide">
+  <div class="kicker">Captures · Work in progress</div>
+  <h2>From reference to running build</h2>
+  <div class="grid two">
+    <figure><img class="shot" src="assets/ref-downtown.png" alt="Ideation reference: downtown SF skyline diorama with Golden Gate"><figcaption>Reference — downtown diorama, bridge in the foreground, skyline behind.</figcaption></figure>
+    <figure><img class="shot" src="assets/capture-stack-flight.png" alt="Live capture: sprite-stack flight over the bay with downtown stacks and red plane"><figcaption>Live capture — stack flight over the bay: layered downtown towers (bottom right), sailboat stacks, drifting cloud slices, and your red plane mid-frame. Camera framing and slice-step tuning continue next round.</figcaption></figure>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">What's done</div>
+  <h2>A flyable city with eight landmarks</h2>
+  <table>
+    <tr><th>Place</th><th>In the build</th></tr>
+    <tr><td>Golden Gate Bridge</td><td>Two 30-slice red tower stacks + deck over the fog channel</td></tr>
+    <tr><td>Downtown</td><td>Salesforce-scale tower stack + Transamerica pyramid stack, 230-building city fill</td></tr>
+    <tr><td>Painted Ladies</td><td>Six pastel stacks whose roof slices slowly turn — the viral rotation, live</td></tr>
+    <tr><td>Twin Peaks · Dolores Park</td><td>Twin hill massifs, palm stacks, picnic-blanket pixels</td></tr>
+    <tr><td>Ferry Building · Chinatown · Ocean Beach</td><td>Waterfront stacks + boat stacks, blinking lantern stacks, surf edge</td></tr>
+  </table>
+  <p><strong>Flight:</strong> drag to steer · scroll for speed · double-click / Boost to surge · WASD + Space / Shift · Esc pause with sensitivity &amp; time-of-day · phone tilt with calibration, dead-zone and smoothing, plus touch fallback. Compass, speed, altitude, and landmark toasts ride along in a brass-and-cream HUD.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Runware API</div>
+  <h2>Art direction, generated</h2>
+  <p class="lead">All painted art comes from the Runware API (<code>runware:100@1</code>, <code>imageInference</code>). The key lives only in a local <code>.env</code> used by a build-side script — it is never shipped to the browser and never committed. A subagent generated the water, park, and poster textures in parallel while the engine was being built.</p>
+  <div class="grid three">
+    <figure><img class="shot" src="assets/sky.jpg" alt="Runware golden-hour sky texture"><figcaption>Golden-hour sky</figcaption></figure>
+    <figure><img class="shot" src="assets/facade-victorian.jpg" alt="Runware Victorian facade texture"><figcaption>Victorian facades</figcaption></figure>
+    <figure><img class="shot" src="assets/water-bay.jpg" alt="Runware bay water texture"><figcaption>Bay water sparkle</figcaption></figure>
+  </div>
+  <figure><img class="shot" src="assets/park-texture.jpg" alt="Runware park texture with palm shadows"><figcaption>Park texture — grass, palm shadows, picnic light.</figcaption></figure>
+</section>
+
+<section class="slide">
+  <div class="kicker">Shipped</div>
+  <h2>Live on Cloudflare Pages</h2>
+  <p class="big-link"><a href="https://cloudbound-sf.pages.dev">cloudbound-sf.pages.dev</a> — open it and fly.</p>
+  <div class="grid two">
+    <div class="card"><p><strong>Stack.</strong> Zero-build static site: Canvas 2D stack engine, procedural pixel sprites, pre-rendered rotating ground, adaptive slice-step that holds frame rate, Web Audio wind on first touch.</p></div>
+    <div class="card"><p><strong>Verified so far.</strong> Headless Chromium capture of the opening flight (previous slide), clean syntax checks, live <code>200</code> from the Pages deployment. Full playtest rounds — every control, phone size, landmark pass — are the next update.</p></div>
+  </div>
+  <p><span class="chip light">Drag · steer</span><span class="chip light">Scroll · speed</span><span class="chip light">Double-click · boost</span><span class="chip light">Tilt · mobile flight</span></p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Next</div>
+  <h2>Where Cloudbound goes from here</h2>
+  <div class="card">
+    <p>1 · Tune the opening framing so the bridge and skyline greet you, exactly like the reference. 2 · Chunkier island terrain and stronger bay contrast to match the stack aesthetic. 3 · A bigger stacked aircraft with animated thruster slices. 4 · Landing perches, a cable car on its wire, and collectible fog wisps for explorers. 5 · Full critic playtest rounds, then a custom domain.</p>
+    <p>The city is yours. Fly anywhere.</p>
+  </div>
+</section>
+
+<nav id="nav" aria-label="Slides">
+  <button id="prev" type="button">← Prev</button>
+  <span id="count">1 / 8</span>
+  <button id="next" type="button">Next →</button>
+</nav>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let i = 0;
+function show(n){
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+  scrollTo(0, 0);
+}
+document.getElementById('next').onclick = () => show(i + 1);
+document.getElementById('prev').onclick = () => show(i - 1);
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+  if (e.key === 'ArrowLeft') show(i - 1);
+});
+</script>
+</body>
+</html>

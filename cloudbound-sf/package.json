@@ -1,0 +1,3 @@
+{ "name": "cloudbound-sf", "private": true, "version": "1.0.0",
+  "scripts": { "dev": "wrangler pages dev . --port 8788", "deploy": "wrangler pages deploy . --project-name cloudbound-sf" },
+  "devDependencies": { "wrangler": "^4.0.0" } }
